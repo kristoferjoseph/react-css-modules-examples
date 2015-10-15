@@ -1,7 +1,11 @@
-var webpack = require('webpack'),
-    path = require('path'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    devServer;
+var webpack = require('webpack')
+var path = require('path')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var postcssImport = require('postcss-import')
+var customProperties = require('postcss-custom-properties')
+var colorScale = require('postcss-color-scale')
+var autoprefixer = require('autoprefixer')
+var devServer
 
 devServer = {
     contentBase: __dirname + '/endpoint',
@@ -45,7 +49,10 @@ module.exports = {
         loaders: [
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+                loader: ExtractTextPlugin.extract(
+                  'style',
+                  'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+                )
             },
             {
                 test: /\.js$/,
@@ -53,6 +60,18 @@ module.exports = {
                 loader: 'babel'
             }
         ]
+    },
+    postcss: function() {
+      return [
+        postcssImport({
+          onImport: function (files) {
+              files.forEach(this.addDependency);
+          }.bind(this)
+        }),
+        colorScale(),
+        customProperties(),
+        autoprefixer
+      ]
     },
     resolve: {
         // root: path.resolve(__dirname, 'node_modules'),

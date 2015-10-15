@@ -1,0 +1,7 @@
+:root {
+  --cs-color: #0f0;
+  --cs-color-variance: 20;
+  --table-border: cs(-4);
+  --row-border: cs(-2);
+  --cell-border: cs(0);
+}

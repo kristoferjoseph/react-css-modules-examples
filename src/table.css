@@ -1,21 +1,24 @@
-.table {
-    width: 200px;
-}
+@import './variables.css';
 
+.table {
+  width: 200px;
+}
 .table,
 .row,
 .cell {
-    margin: 10px; overflow: hidden;
+  margin: 10px;
+  overflow: hidden;
 }
-
 .table {
-    border: 1px solid #000;
+  border: 1px solid;
+  border-color: var(--table-border);
 }
-
 .row {
-    border: 1px solid #f00;
+  border: 1px solid;
+  border-color: var(--row-border);
 }
-
 .cell {
-    border: 1px solid #00f; padding: 10px;
+  border: 1px solid;
+  padding: 10px;
+  border-color: var(--cell-border);
 }
